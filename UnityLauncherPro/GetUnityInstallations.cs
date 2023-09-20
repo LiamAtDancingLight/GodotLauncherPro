@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityLauncherPro.Data;
 
 namespace UnityLauncherPro
 {
@@ -9,7 +10,17 @@ namespace UnityLauncherPro
     /// </summary>
     public static class GetUnityInstallations
     {
-        static Dictionary<string, string> platformNames = new Dictionary<string, string> { { "androidplayer", "Android" }, { "windowsstandalonesupport", "Win" }, { "linuxstandalonesupport", "Linux" }, { "LinuxStandalone", "Linux" }, { "OSXStandalone", "OSX" }, { "webglsupport", "WebGL" }, { "metrosupport", "UWP" }, { "iossupport", "iOS" } };
+        static Dictionary<string, string> platformNames = new Dictionary<string, string>
+        {
+            { "androidplayer", "Android" }, 
+            { "windowsstandalonesupport", "Win" }, 
+            { "linuxstandalonesupport", "Linux" }, 
+            { "LinuxStandalone", "Linux" }, 
+            { "OSXStandalone", "OSX" }, 
+            { "webglsupport", "WebGL" }, 
+            { "metrosupport", "UWP" }, 
+            { "iossupport", "iOS" }
+        };
 
 
         // returns unity installations
@@ -25,7 +36,10 @@ namespace UnityLauncherPro
             foreach (string rootFolder in rootFolders)
             {
                 // if folder exists
-                if (String.IsNullOrWhiteSpace(rootFolder) == true || Directory.Exists(rootFolder) == false) continue;
+                if (string.IsNullOrWhiteSpace(rootFolder) || Directory.Exists(rootFolder) == false)
+                {
+                    continue;
+                }
 
                 // get all folders
                 var directories = Directory.GetDirectories(rootFolder);
@@ -56,14 +70,16 @@ namespace UnityLauncherPro
 
                     // we got new version to add
                     var dataFolder = Path.Combine(editorFolder, "Data");
-                    DateTime? installDate = Tools.GetLastModifiedTime(dataFolder);
-                    UnityInstallation unity = new UnityInstallation();
-                    unity.Version = version;
-                    unity.VersionCode = Tools.VersionAsLong(version); // cached version code
-                    unity.Path = exePath;
-                    unity.Installed = installDate;
-                    unity.IsPreferred = (version == MainWindow.preferredVersion);
-                    unity.ProjectCount = GetProjectCountForUnityVersion(version);
+                    var installDate = Tools.GetLastModifiedTime(dataFolder);
+                    var unity = new UnityInstallation
+                    {
+                        Version = version,
+                        VersionCode = Tools.VersionAsLong(version), // cached version code
+                        Path = exePath,
+                        Installed = installDate,
+                        IsPreferred = (version == MainWindow.preferredVersion),
+                        ProjectCount = GetProjectCountForUnityVersion(version)
+                    };
 
                     if (Tools.IsLTS(version))
                     {
@@ -90,9 +106,9 @@ namespace UnityLauncherPro
                     if (platforms != null) unity.Platforms = platforms;
 
                     // add to list, if not there yet NOTE should notify that there are 2 same versions..? this might happen with preview builds..
-                    if (results.Contains(unity) == true)
+                    if (results.Contains(unity))
                     {
-                        Console.WriteLine("Warning: 2 same versions found for " + version);
+                        Console.WriteLine($"Warning: 2 same versions found for {version}");
                         continue;
                     }
 
@@ -127,7 +143,7 @@ namespace UnityLauncherPro
         }
 
         // scans unity installation folder for installed platforms
-        static string[] GetPlatforms(string dataFolder)
+        private static string[] GetPlatforms(string dataFolder)
         {
             // get all folders inside
             var platformFolder = Path.Combine(dataFolder, "PlaybackEngines");
@@ -147,7 +163,10 @@ namespace UnityLauncherPro
                     directories[i] = platformNames[foldername];
 
                     // add also 64bit desktop versions for that platform, NOTE dont add android, ios or webgl
-                    if (foldername.IndexOf("alone") > -1) directories.Add(platformNames[foldername] + "64");
+                    if (foldername.IndexOf("alone") > -1)
+                    {
+                        directories.Add($"{platformNames[foldername]}64");
+                    }
                 }
                 else // use raw
                 {
@@ -159,7 +178,7 @@ namespace UnityLauncherPro
             return directories.ToArray();
         }
 
-        static int GetProjectCountForUnityVersion(string version)
+        private static int GetProjectCountForUnityVersion(string version)
         {
             if (MainWindow.projectsSource == null) return 0;
             //Console.WriteLine("xxx "+(MainWindow.projectsSource==null));
@@ -172,5 +191,5 @@ namespace UnityLauncherPro
             return count;
         }
 
-    } // class
-} // namespace
+    }
+}

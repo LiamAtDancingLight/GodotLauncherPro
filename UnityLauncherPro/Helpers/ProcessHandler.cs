@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
+using UnityLauncherPro.Data;
 
 namespace UnityLauncherPro.Helpers
 {
@@ -45,8 +46,7 @@ namespace UnityLauncherPro.Helpers
 
         public static Process Get(string key)
         {
-            if (processes.ContainsKey(key)) return processes[key];
-            return null;
+            return processes.TryGetValue(key, out var process) ? process : null;
         }
 
         public static bool IsRunning(string key)
@@ -56,7 +56,10 @@ namespace UnityLauncherPro.Helpers
 
         public static void Remove(string key)
         {
-            if (processes.ContainsKey(key)) processes.Remove(key);
+            if (processes.ContainsKey(key))
+            {
+                processes.Remove(key);
+            }
         }
     }
 }

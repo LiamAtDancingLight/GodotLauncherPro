@@ -1,10 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace UnityLauncherPro
+namespace UnityLauncherPro.Data
 {
     public class ThemeColor : IValueConverter
     {

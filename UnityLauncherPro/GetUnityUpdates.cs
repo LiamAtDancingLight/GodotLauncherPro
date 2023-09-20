@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
+using UnityLauncherPro.Data;
 
 namespace UnityLauncherPro
 {
@@ -49,7 +50,10 @@ namespace UnityLauncherPro
             isDownloadingUnityList = false;
             //SetStatus("Downloading list of Unity versions ... done");
             var receivedList = items.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            if (receivedList == null && receivedList.Length < 1) return null;
+            if (receivedList == null && receivedList.Length < 1)
+            {
+                return null;
+            }
             Array.Reverse(receivedList);
             var releases = new Dictionary<string, Updates>();
             // parse into data
@@ -59,14 +63,22 @@ namespace UnityLauncherPro
                 var row = receivedList[i].Split(',');
                 var versionTemp = row[6].Trim('"');
 
-                if (versionTemp.Length < 1) continue;
-                if (prevVersion == versionTemp) continue;
+                if (versionTemp.Length < 1)
+                {
+                    continue;
+                }
+                if (prevVersion == versionTemp)
+                {
+                    continue;
+                }
 
                 if (releases.ContainsKey(versionTemp) == false)
                 {
-                    var u = new Updates();
-                    u.ReleaseDate = DateTime.ParseExact(row[3], "MM/dd/yyyy", CultureInfo.InvariantCulture);
-                    u.Version = versionTemp;
+                    var u = new Updates
+                    {
+                        ReleaseDate = DateTime.ParseExact(row[3], "MM/dd/yyyy", CultureInfo.InvariantCulture),
+                        Version = versionTemp
+                    };
                     releases.Add(versionTemp, u);
                 }
 
@@ -78,6 +90,5 @@ namespace UnityLauncherPro
             releases.Values.CopyTo(results, 0);
             return results;
         }
-
     }
 }

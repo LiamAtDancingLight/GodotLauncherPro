@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Text;
+using UnityLauncherPro.Data;
 
 namespace UnityLauncherPro
 {
@@ -13,11 +14,17 @@ namespace UnityLauncherPro
         static readonly string[] registryPathsToCheck = new string[] { @"SOFTWARE\Unity Technologies\Unity Editor 5.x", @"SOFTWARE\Unity Technologies\Unity Editor 4.x" };
 
         // convert target platform name into valid buildtarget platform name, NOTE this depends on unity version, now only 2019 and later are supported
-        public static Dictionary<string, string> remapPlatformNames = new Dictionary<string, string> { { "StandaloneWindows64", "Win64" }, { "StandaloneWindows", "Win" }, { "Android", "Android" }, { "WebGL", "WebGL" } };
-
-        public static List<Project> Scan(bool getGitBranch = false, bool getPlasticBranch = false, bool getArguments = false, bool showMissingFolders = false, bool showTargetPlatform = false, StringCollection AllProjectPaths = null)
+        public static Dictionary<string, string> remapPlatformNames = new Dictionary<string, string>
         {
-            List<Project> projectsFound = new List<Project>();
+            { "StandaloneWindows64", "Win64" }, 
+            { "StandaloneWindows", "Win" }, 
+            { "Android", "Android" }, 
+            { "WebGL", "WebGL" }
+        };
+
+        public static List<Project> Scan(bool getGitBranch = false, bool getPlasticBranch = false, bool getArguments = false, bool showMissingFolders = false, bool showTargetPlatform = false, StringCollection allProjectPaths = null)
+        {
+            var projectsFound = new List<Project>();
 
             var hklm = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
 
@@ -38,14 +45,14 @@ namespace UnityLauncherPro
                 // parse recent project path
                 foreach (var valueName in key.GetValueNames())
                 {
-                    if (valueName.IndexOf("RecentlyUsedProjectPaths-") == 0)
+                    if (valueName.IndexOf("RecentlyUsedProjectPaths-", StringComparison.InvariantCulture) == 0)
                     {
                         string projectPath = "";
                         // check if binary or not
                         var valueKind = key.GetValueKind(valueName);
                         if (valueKind == RegistryValueKind.Binary)
                         {
-                            byte[] projectPathBytes = (byte[])key.GetValue(valueName);
+                            var projectPathBytes = (byte[])key.GetValue(valueName);
                             projectPath = Encoding.UTF8.GetString(projectPathBytes, 0, projectPathBytes.Length - 1);
                         }
                         else // should be string then
@@ -75,10 +82,10 @@ namespace UnityLauncherPro
             // but then we would have to loop here again..? or add in the loop above..if doesnt exists on list, and the remove extra items from the end
 
             // scan info for custom folders (if not already on the list)
-            if (AllProjectPaths != null)
+            if (allProjectPaths != null)
             {
                 // iterate custom full projects history
-                foreach (var projectPath in AllProjectPaths)
+                foreach (var projectPath in allProjectPaths)
                 {
                     // check if registry list contains this path already, then skip it
                     bool found = false;
@@ -202,13 +209,13 @@ namespace UnityLauncherPro
             p.Path = projectPath;
             p.Modified = lastUpdated;
             p.Arguments = customArgs;
-            p.GITBranch = gitBranch;
+            p.Branch = gitBranch;
             //Console.WriteLine("targetPlatform " + targetPlatform + " projectPath:" + projectPath);
-            p.TargetPlatform = targetPlatform;
+            p.Platform = targetPlatform;
 
             // bubblegum(TM) solution, fill available platforms for this unity version, for this project
             p.TargetPlatforms = Tools.GetPlatformsForUnityVersion(projectVersion);
-            p.folderExists = folderExists;
+            p.FolderExists = folderExists;
             return p;
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityLauncherPro
+namespace UnityLauncherPro.Data
 {
     public class Updates
     {

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:UnityLauncherPro"
+             xmlns:data="clr-namespace:UnityLauncherPro.Data"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -153,13 +154,13 @@
             <!-- platform dropdown menu -->
             <ObjectDataProvider x:Key="platformEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type Type="local:Platform"/>
+                    <x:Type Type="data:Platform"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
             <!-- colors for unity missing installatios -->
-            <local:UnityInstallation x:Key="VersionInstalledConverter"/>
-            <local:Project x:Key="ProjectExistsConverter"/>
+            <data:UnityInstallation x:Key="VersionInstalledConverter"/>
+            <data:Project x:Key="ProjectExistsConverter"/>
 
             <!-- tabs -->
             <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">

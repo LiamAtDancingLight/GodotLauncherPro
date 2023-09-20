@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using UnityLauncherPro.Data;
 using UnityLauncherPro.Helpers;
 
 namespace UnityLauncherPro
@@ -287,7 +288,7 @@ namespace UnityLauncherPro
                     unitycommandlineparameters += " " + customArguments;
                 }
 
-                string projTargetPlatform = proj.TargetPlatform;
+                string projTargetPlatform = proj.Platform;
                 if (string.IsNullOrEmpty(projTargetPlatform) == false)
                 {
                     unitycommandlineparameters += " -buildTarget " + projTargetPlatform;
@@ -1301,9 +1302,9 @@ namespace UnityLauncherPro
             proj.Path = Path.Combine(baseFolder, newPath).Replace("\\", "/");
             proj.Version = version;
             proj.TargetPlatforms = platformsForThisUnity;
-            proj.TargetPlatform = platform;
+            proj.Platform = platform;
             proj.Modified = DateTime.Now;
-            proj.folderExists = true; // have to set this value, so item is green on list
+            proj.FolderExists = true; // have to set this value, so item is green on list
 
             var proc = LaunchProject(proj, null, useInitScript);
             ProcessHandler.Add(proj, proc);

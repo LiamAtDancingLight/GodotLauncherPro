@@ -76,11 +76,14 @@ namespace TarLib
                 // rename output path from "package/ProjectData~/Assets/" into "Assets/"
                 output = output.Replace("package/ProjectData~/", "");
 
-                if (include == true && !Directory.Exists(Path.GetDirectoryName(output))) Directory.CreateDirectory(Path.GetDirectoryName(output));
+                if (include && !Directory.Exists(Path.GetDirectoryName(output)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(output));
+                }
 
                 if (!name.Equals("./", StringComparison.InvariantCulture))
                 {
-                    if (include == true)
+                    if (include)
                     {
                         //Console.WriteLine("output=" + output);
                         using (var str = File.Open(output, FileMode.OpenOrCreate, FileAccess.Write))
@@ -110,7 +113,9 @@ namespace TarLib
         private static void FakeSeekForward(Stream stream, int offset)
         {
             if (stream.CanSeek)
+            {
                 stream.Seek(offset, SeekOrigin.Current);
+            }
             else
             {
                 int bytesRead = 0;
@@ -119,7 +124,9 @@ namespace TarLib
                 {
                     int read = stream.Read(buffer, bytesRead, offset - bytesRead);
                     if (read == 0)
+                    {
                         throw new EndOfStreamException();
+                    }
                     bytesRead += read;
                 }
             }

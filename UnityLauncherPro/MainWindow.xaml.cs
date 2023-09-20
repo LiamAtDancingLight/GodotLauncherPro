@@ -19,6 +19,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using UnityLauncherPro.Data;
 using UnityLauncherPro.Helpers;
 using UnityLauncherPro.Properties;
 
@@ -26,7 +27,7 @@ namespace UnityLauncherPro
 {
     public partial class MainWindow : Window
     {
-        public const string appName = "UnityLauncherPro";
+        public const string appName = "GodotLauncherPro";
         public static string currentDateFormat = null;
         public static bool useHumanFriendlyDateFormat = false;
         public static bool searchProjectPathAlso = false;
@@ -116,7 +117,7 @@ namespace UnityLauncherPro
                 {
                     // NOTE doesnt work if its minized to tray
                     ActivateOtherWindow();
-                    App.Current.Shutdown();
+                    Application.Current.Shutdown();
                 }
             }
 
@@ -124,9 +125,9 @@ namespace UnityLauncherPro
             //Properties.Settings.Default.projectPaths = null;
             //Properties.Settings.Default.Save();
 
-            projectsSource = GetProjects.Scan(getGitBranch: (bool)chkShowGitBranchColumn.IsChecked, getPlasticBranch: (bool)chkCheckPlasticBranch.IsChecked, getArguments: (bool)chkShowLauncherArgumentsColumn.IsChecked, showMissingFolders: (bool)chkShowMissingFolderProjects.IsChecked, showTargetPlatform: (bool)chkShowPlatform.IsChecked, AllProjectPaths: Properties.Settings.Default.projectPaths);
+            projectsSource = GetProjects.Scan(getGitBranch: (bool)chkShowGitBranchColumn.IsChecked, getPlasticBranch: (bool)chkCheckPlasticBranch.IsChecked, getArguments: (bool)chkShowLauncherArgumentsColumn.IsChecked, showMissingFolders: (bool)chkShowMissingFolderProjects.IsChecked, showTargetPlatform: (bool)chkShowPlatform.IsChecked, allProjectPaths: Properties.Settings.Default.projectPaths);
 
-            Console.WriteLine("projectsSource.Count: " + projectsSource.Count);
+            Console.WriteLine($"projectsSource.Count: {projectsSource.Count}");
 
             gridRecent.Items.Clear();
             gridRecent.ItemsSource = projectsSource;
@@ -766,7 +767,7 @@ namespace UnityLauncherPro
             // take currently selected project row
             lastSelectedProjectIndex = gridRecent.SelectedIndex;
             // rescan recent projects
-            projectsSource = GetProjects.Scan(getGitBranch: (bool)chkShowGitBranchColumn.IsChecked, getPlasticBranch: (bool)chkCheckPlasticBranch.IsChecked, getArguments: (bool)chkShowLauncherArgumentsColumn.IsChecked, showMissingFolders: (bool)chkShowMissingFolderProjects.IsChecked, showTargetPlatform: (bool)chkShowPlatform.IsChecked, AllProjectPaths: Settings.Default.projectPaths);
+            projectsSource = GetProjects.Scan(getGitBranch: (bool)chkShowGitBranchColumn.IsChecked, getPlasticBranch: (bool)chkCheckPlasticBranch.IsChecked, getArguments: (bool)chkShowLauncherArgumentsColumn.IsChecked, showMissingFolders: (bool)chkShowMissingFolderProjects.IsChecked, showTargetPlatform: (bool)chkShowPlatform.IsChecked, allProjectPaths: Settings.Default.projectPaths);
             gridRecent.ItemsSource = projectsSource;
 
             // fix sorting on refresh
@@ -840,8 +841,8 @@ namespace UnityLauncherPro
             p.Title = Path.GetFileName(folder);
             p.Version = Tools.GetProjectVersion(folder);
             p.Arguments = Tools.ReadCustomProjectData(folder, launcherArgumentsFile);
-            if ((bool)chkShowPlatform.IsChecked == true) p.TargetPlatform = Tools.GetTargetPlatform(folder);
-            if ((bool)chkShowGitBranchColumn.IsChecked == true) p.GITBranch = Tools.ReadGitBranchInfo(folder);
+            if ((bool)chkShowPlatform.IsChecked == true) p.Platform = Tools.GetTargetPlatform(folder);
+            if ((bool)chkShowGitBranchColumn.IsChecked == true) p.Branch = Tools.ReadGitBranchInfo(folder);
             return p;
         }
 
@@ -2627,7 +2628,7 @@ namespace UnityLauncherPro
                 var cmb = (ComboBox)sender;
                 //Console.WriteLine(cmb.SelectedValue);
                 var p = GetSelectedProject();
-                if (p != null && p.TargetPlatform != null) p.TargetPlatform = cmb.SelectedValue.ToString();
+                if (p != null && p.Platform != null) p.Platform = cmb.SelectedValue.ToString();
             }
             catch (Exception ex)
             {
@@ -2871,8 +2872,8 @@ namespace UnityLauncherPro
                     var tempProj = projectsSource[i];
                     tempProj.Modified = Tools.GetLastModifiedTime(proj.Path);
                     tempProj.Version = Tools.GetProjectVersion(proj.Path);
-                    tempProj.GITBranch = Tools.ReadGitBranchInfo(proj.Path);
-                    tempProj.TargetPlatform = Tools.GetTargetPlatform(proj.Path);
+                    tempProj.Branch = Tools.ReadGitBranchInfo(proj.Path);
+                    tempProj.Platform = Tools.GetTargetPlatform(proj.Path);
                     projectsSource[i] = tempProj;
                     gridRecent.Items.Refresh();
                     break;
@@ -3217,16 +3218,16 @@ namespace UnityLauncherPro
                         return direction == ListSortDirection.Ascending ? ((Project)a).Arguments.CompareTo(((Project)b).Arguments) : ((Project)b).Arguments.CompareTo(((Project)a).Arguments);
                     case "Branch":
                         // handle null values
-                        if (((Project)a).GITBranch == null && ((Project)b).GITBranch == null) return 0;
-                        if (((Project)a).GITBranch == null) return direction == ListSortDirection.Ascending ? -1 : 1;
-                        if (((Project)b).GITBranch == null) return direction == ListSortDirection.Ascending ? 1 : -1;
-                        return direction == ListSortDirection.Ascending ? ((Project)a).GITBranch.CompareTo(((Project)b).GITBranch) : ((Project)b).GITBranch.CompareTo(((Project)a).GITBranch);
+                        if (((Project)a).Branch == null && ((Project)b).Branch == null) return 0;
+                        if (((Project)a).Branch == null) return direction == ListSortDirection.Ascending ? -1 : 1;
+                        if (((Project)b).Branch == null) return direction == ListSortDirection.Ascending ? 1 : -1;
+                        return direction == ListSortDirection.Ascending ? ((Project)a).Branch.CompareTo(((Project)b).Branch) : ((Project)b).Branch.CompareTo(((Project)a).Branch);
                     case "Platform":
                         // handle null values
-                        if (((Project)a).TargetPlatform == null && ((Project)b).TargetPlatform == null) return 0;
-                        if (((Project)a).TargetPlatform == null) return direction == ListSortDirection.Ascending ? -1 : 1;
-                        if (((Project)b).TargetPlatform == null) return direction == ListSortDirection.Ascending ? 1 : -1;
-                        return direction == ListSortDirection.Ascending ? ((Project)a).TargetPlatform.CompareTo(((Project)b).TargetPlatform) : ((Project)b).TargetPlatform.CompareTo(((Project)a).TargetPlatform);
+                        if (((Project)a).Platform == null && ((Project)b).Platform == null) return 0;
+                        if (((Project)a).Platform == null) return direction == ListSortDirection.Ascending ? -1 : 1;
+                        if (((Project)b).Platform == null) return direction == ListSortDirection.Ascending ? 1 : -1;
+                        return direction == ListSortDirection.Ascending ? ((Project)a).Platform.CompareTo(((Project)b).Platform) : ((Project)b).Platform.CompareTo(((Project)a).Platform);
                     default:
                         return 0;
                 }

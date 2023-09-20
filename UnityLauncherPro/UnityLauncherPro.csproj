@@ -86,6 +86,7 @@
     <Compile Include="Data\BuildReport.cs" />
     <Compile Include="Data\BuildReportItem.cs" />
     <Compile Include="Data\Platform.cs" />
+    <Compile Include="Data\Renderer.cs" />
     <Compile Include="Data\Tabs.cs" />
     <Compile Include="Data\ThemeColor.cs" />
     <Compile Include="GetProjects.cs" />

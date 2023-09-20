@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnityLauncherPro"
+        xmlns:data="clr-namespace:UnityLauncherPro.Data"
         mc:Ignorable="d"
         Title="ThemeEditor" Height="500" Width="500" WindowStyle="ToolWindow" Loaded="Window_Loaded" Background="#FF121212" ResizeMode="NoResize">
 
@@ -19,7 +20,7 @@
     </Window.InputBindings>
 
     <Window.Resources>
-        <local:ThemeColor x:Key="SolidColorBrushConverter"/>
+        <data:ThemeColor x:Key="SolidColorBrushConverter"/>
     </Window.Resources>
 
     <Grid>

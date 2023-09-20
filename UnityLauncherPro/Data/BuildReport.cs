@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UnityLauncherPro
+namespace UnityLauncherPro.Data
 {
     public class BuildReport
     {

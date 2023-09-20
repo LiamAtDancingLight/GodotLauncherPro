@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnityLauncherPro"
 		xmlns:System="clr-namespace:System;assembly=mscorlib"
-        xmlns:converters="clr-namespace:UnityLauncherPro.Converters" x:Class="UnityLauncherPro.MainWindow"
+        xmlns:converters="clr-namespace:UnityLauncherPro.Converters"
+        xmlns:data="clr-namespace:UnityLauncherPro.Data"
+        x:Class="UnityLauncherPro.MainWindow"
 		mc:Ignorable="d"
-        Title="UnityLauncherPro" Height="650" Width="880" WindowStartupLocation="CenterScreen" Background="{DynamicResource ThemeDarkestBackground}" MinWidth="780" MinHeight="650" AllowsTransparency="True" WindowStyle="None" Margin="0" KeyDown="OnWindowKeyDown" Closing="Window_Closing" SizeChanged="Window_SizeChanged" Icon="Images/icon.ico" SourceInitialized="Window_SourceInitialized" MouseDown="Window_MouseDown">
+        Title="GodotLauncherPro" Height="650" Width="880" WindowStartupLocation="CenterScreen" Background="{DynamicResource ThemeDarkestBackground}" MinWidth="780" MinHeight="650" AllowsTransparency="True" WindowStyle="None" Margin="0" KeyDown="OnWindowKeyDown" Closing="Window_Closing" SizeChanged="Window_SizeChanged" Icon="Images/icon.ico" SourceInitialized="Window_SourceInitialized" MouseDown="Window_MouseDown">
     <Window.Resources>
         <converters:LastModifiedConverter x:Key="lastModifiedConverter"/>
         <converters:ReleaseDateConverter x:Key="releaseDateConverter"/>
@@ -31,7 +33,7 @@
                 </Button.Template>
             </Button>
             <Image Source="Images/icon.png" RenderOptions.BitmapScalingMode="NearestNeighbor" HorizontalAlignment="Left" Width="16" Height="16" Margin="4,0,0,0" SnapsToDevicePixels="True" UseLayoutRounding="True" />
-            <Label Content="UnityLauncherPro" IsHitTestVisible="False" Margin="19,0,0,-5"  Foreground="{DynamicResource ThemeMainTitle}" FontSize="12" HorizontalAlignment="Left"  />
+            <Label Content="GodotLauncherPro" IsHitTestVisible="False" Margin="19,0,0,-5"  Foreground="{DynamicResource ThemeMainTitle}" FontSize="12" HorizontalAlignment="Left"  />
             <!-- minimize -->
             <Button x:Name="btnMinimize" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Right" VerticalAlignment="Top" Height="23" Width="23" Background="Transparent" Click="BtnMinimize_Click" Margin="0,0,27,0" Padding="2,0,2,8" IsTabStop="False">
                 <TextBlock Text="–" FontSize="15" Foreground="{DynamicResource ThemeWindowMinClose}" Padding="0" Height="23" HorizontalAlignment="Center"/>
@@ -205,38 +207,38 @@
                         </DataGrid.ContextMenu>
 
                         <!-- sample data for testing -->
-                        <local:Project TargetPlatform="win64" GITBranch="Best" Modified="" Title="M dfgh dfghMO" Path="A:/temp" Version="2099.1.2.3" />
-                        <local:Project GITBranch="" Modified="" Title="asdgdfg" Path="A:/temp" Version="5.6.7f1"/>
-                        <local:Project GITBranch="" Modified="" Title="Mghdfghdf dfghdfgMO" Path="A:/temp" Version="2018.3.13f1"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="fghdhdfgh" Path="A:/temp" Version="2018.3.13f1"/>
-                        <local:Project GITBranch="" Modified="" Title="MdfMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MdfgMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MdfghMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="5.6.7f1"/>
-                        <local:Project GITBranch="" Modified="" Title="ddfghfghdfgh" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2018.3.13f1"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMdfghO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MdfghMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="dfgh" Path="A:/temp" Version="5.6.7f1"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2018.3.13f1"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="Mdfg hMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMd fghO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="MMdfg hO" Path="A:/temp" Version="2099.1.2.3"/>
-                        <local:Project GITBranch="" Modified="" Title="Md fghMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Platform="win64" Branch="Best" Modified="" Title="M dfgh dfghMO" Path="A:/temp" Version="2099.1.2.3" />
+                        <data:Project Branch="" Modified="" Title="asdgdfg" Path="A:/temp" Version="5.6.7f1"/>
+                        <data:Project Branch="" Modified="" Title="Mghdfghdf dfghdfgMO" Path="A:/temp" Version="2018.3.13f1"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="fghdhdfgh" Path="A:/temp" Version="2018.3.13f1"/>
+                        <data:Project Branch="" Modified="" Title="MdfMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MdfgMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MdfghMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="5.6.7f1"/>
+                        <data:Project Branch="" Modified="" Title="ddfghfghdfgh" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2018.3.13f1"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMdfghO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MdfghMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="dfgh" Path="A:/temp" Version="5.6.7f1"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2018.3.13f1"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="Mdfg hMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMd fghO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="MMdfg hO" Path="A:/temp" Version="2099.1.2.3"/>
+                        <data:Project Branch="" Modified="" Title="Md fghMO" Path="A:/temp" Version="2099.1.2.3"/>
                     </DataGrid>
 
                     <!-- bottom buttoms row -->
@@ -360,7 +362,7 @@
                         </DataGrid.ContextMenu>
 
                         <!-- sample data for testing -->
-                        <local:UnityInstallation Version="3000.1.2f1" Path="c:/proggies/unity3000" Installed="12.12.2020" />
+                        <data:UnityInstallation Version="3000.1.2f1" Path="c:/proggies/unity3000" Installed="12.12.2020" />
                     </DataGrid>
 
                     <!-- bottom buttoms row -->
@@ -477,7 +479,7 @@
                                 <MenuItem x:Name="menuItemUpdatesReleaseNotes" Header="Open Release Notes" Click="MenuItemUpdatesReleaseNotes_Click" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
-                        <local:Updates ReleaseDate="2020-10-10" Version="5000.1.2.3"/>
+                        <data:Updates ReleaseDate="2020-10-10" Version="5000.1.2.3"/>
 
                         <!-- sample data for testing -->
                     </DataGrid>
@@ -647,9 +649,9 @@
                                 </DataGrid.ContextMenu>
 
                                 <!-- sample data for testing -->
-                                <local:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
-                                <local:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
-                                <local:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
+                                <data:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
+                                <data:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
+                                <data:BuildReportItem Size="10.0 mb" Percentage="50.0%" Path="Assets/Textures/sample.png" />
                             </DataGrid>
 
                             <StackPanel Grid.Column="1" Orientation="Vertical">
@@ -659,7 +661,7 @@
                                         <DataGridTextColumn Header="Size" Binding="{Binding Size}" IsReadOnly="True" CanUserResize="False" MinWidth="80" />
                                         <DataGridTextColumn Header="%" Binding="{Binding Percentage}" IsReadOnly="True" CanUserResize="False" MinWidth="80" />
                                     </DataGrid.Columns>
-                                    <local:BuildReportItem Category="Texture" Size="10.0 mb" Percentage="50.0%" />
+                                    <data:BuildReportItem Category="Texture" Size="10.0 mb" Percentage="50.0%" />
                                 </DataGrid>
                                 <Label Content="Elapsed time:" Foreground="{DynamicResource ThemeButtonForeground}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                                 <TextBox CaretBrush="#FFE2E2E2" x:Name="txtBuildTime" Background="{DynamicResource ThemeTextBoxBackground}" BorderBrush="{x:Null}" Foreground="#FFC7C7C7" SelectionBrush="#FF003966" BorderThickness="0" UndoLimit="64" IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="4,0,4,0" />

@@ -1,4 +1,4 @@
-﻿namespace UnityLauncherPro
+﻿namespace UnityLauncherPro.Data
 {
     public class BuildReportItem
     {

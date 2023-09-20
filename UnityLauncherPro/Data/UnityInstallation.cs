@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace UnityLauncherPro
+namespace UnityLauncherPro.Data
 {
     public class UnityInstallation : IValueConverter
     {
@@ -21,8 +21,12 @@ namespace UnityLauncherPro
         // https://stackoverflow.com/a/5551986/5452781
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string version = value as string;
-            if (string.IsNullOrEmpty(version)) return null;
+            var version = value as string;
+            if (string.IsNullOrEmpty(version))
+            {
+                return null;
+            }
+            
             return MainWindow.unityInstalledVersions.ContainsKey(version);
         }
 
@@ -30,6 +34,5 @@ namespace UnityLauncherPro
         {
             throw new NotSupportedException();
         }
-
     }
 }
